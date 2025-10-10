@@ -1,5 +1,6 @@
 import flet as ft
-from flet import Page, TextField, ElevatedButton, Text, Column, MainAxisAlignment, Card, Container
+from flet import Page, TextField, ElevatedButton, Text, Column, MainAxisAlignment
+from clientes_model import ClientesModel
 
 class VistaLogin:
     def __init__(self, page: Page):
@@ -7,37 +8,30 @@ class VistaLogin:
         self.page.title = "Login"
         self.page.clean()
 
-        self.txt_user = TextField(label="Usuario", width=300)
-        self.txt_password = TextField(label="Contraseña", password=True, width=300)
-        self.btn_login = ElevatedButton(text="Iniciar sesión", on_click=self.login, bgcolor=ft.Colors.BLUE, color="white")
-        self.lbl_message = Text("Ingresa tus datos", color="blue", size=16)
+        self.modelo = ClientesModel()
 
-        card = Card(
-            content=Container(
-                content=Column(
-                    controls=[
-                        self.lbl_message,
-                        self.txt_user,
-                        self.txt_password,
-                        self.btn_login
-                    ],
-                    alignment=MainAxisAlignment.CENTER,
-                    spacing=20
-                ),
-                padding=20,
-                width=350
-            )
-        )
+        self.txt_email = TextField(label="Email", width=300)
+        self.txt_password = TextField(label="Contraseña", password=True, width=300)
+        self.btn_login = ElevatedButton(text="Login", on_click=self.login)
+        self.lbl_message = Text("Ingresa tus datos", color="blue")
 
         self.page.add(
             Column(
-                controls=[card],
+                controls=[self.lbl_message, self.txt_email, self.txt_password, self.btn_login],
                 alignment=MainAxisAlignment.CENTER,
-                horizontal_alignment="center"
+                spacing=20
             )
         )
 
     def login(self, e):
-        self.lbl_message.value = f"Bienvenido, {self.txt_user.value}"
-        self.lbl_message.color = "green"
+        email = self.txt_email.value
+        password = self.txt_password.value
+
+        if self.modelo.autenticar_cliente(email, password):
+            self.lbl_message.value = f"Bienvenido, {email}"
+            self.lbl_message.color = "green"
+        else:
+            self.lbl_message.value = "Credenciales inválidas"
+            self.lbl_message.color = "red"
+
         self.page.update()

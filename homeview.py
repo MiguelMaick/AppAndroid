@@ -1,11 +1,10 @@
 import flet as ft
-from flet import Page, AppBar, Icon, Icons, Text, IconButton, PopupMenuButton, Colors, Column, Container, Card, Row
-
+from flet import Page, AppBar, Icon, Icons, Text, IconButton, PopupMenuButton, PopupMenuItem, CupertinoFilledButton, Column, Colors
 
 class VistaAppBar:
     def __init__(self, page: Page):
         self.page = page
-        self.page.title = "Menú principal"
+        self.page.title = "AppBar Example"
         self.page.window.width = 411
         self.page.window.height = 831
         self.page.window.resizable = False
@@ -17,61 +16,35 @@ class VistaAppBar:
 
     def construir_appbar(self):
         self.page.appbar = AppBar(
-            leading=IconButton(Icons.HOME, icon_color="white", on_click=lambda e: self.page.go("/home")),
+            leading=Icon(Icons.HOME, color="white"),
             leading_width=50,
-            title=Text("Menú de navegación", color="white", size=20),
+            title=Text("Menú de navegación", color ="white", size = 20),
             center_title=True,
             bgcolor=Colors.BLUE_GREY,
             actions=[
+                IconButton(Icons.ANDROID, icon_color = "white"),
+                IconButton(Icons.CLOUD, icon_color= "white"),
                 PopupMenuButton(
-                    items=[
-                        ft.PopupMenuItem(text="Login", on_click=lambda e: self.page.go("/login")),
-                        ft.PopupMenuItem(text="Soy nuevo", on_click=lambda e: self.page.go("/registro")),
-                        ft.PopupMenuItem(text="Home", on_click=lambda e: self.page.go("/home")),
+            items=[
+                ft.PopupMenuItem(text="Login", on_click=lambda e: self.page.go("/login")),
+                ft.PopupMenuItem(text="Soy nuevo", on_click=lambda e: self.page.go("/registro")),
+                ft.PopupMenuItem(text="Home", on_click=lambda e: self.page.go("/home")),
                     ]
                 ),
             ],
         )
 
     def construir_contenido(self):
-        mensaje = Text("Prueba mamalona", size=18, weight="bold", color="white")
-
-        tarjeta = Card(
-            content=Container(
-                content=Column(
-                    controls=[
-                        mensaje,
-                        Row(
-                            controls=[
-                                ft.ElevatedButton(
-                                    text="Login",
-                                    bgcolor=Colors.BLUE,
-                                    color="white",
-                                    on_click=lambda e: self.page.go("/login")
-                                ),
-                                ft.ElevatedButton(
-                                    text="Registro",
-                                    bgcolor=Colors.GREEN,
-                                    color="white",
-                                    on_click=lambda e: self.page.go("/registro")
-                                ),
-                            ],
-                            alignment="center",
-                            spacing=20
-                        )
-                    ],
-                    spacing=20,
-                    alignment="center"
-                ),
-                padding=30,
-                alignment=ft.alignment.center
-            )
+        mensaje = Text("Bienvenido a Python una app bien Perrona!!!")
+        boton = CupertinoFilledButton(
+            content=Text("Botón de ejemplo"),
+            opacity_on_click=0.3,
+            on_click=self.boton_click
         )
+        
 
-        self.page.add(
-            Column(
-                controls=[tarjeta],
-                alignment="center",
-                horizontal_alignment="center"
-            )
-        )
+        self.page.add(Column(controls=[mensaje, boton], spacing=20))
+
+    def boton_click(self, e):
+        print("Botón en accionamiento")
+
