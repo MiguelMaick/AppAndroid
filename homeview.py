@@ -1,50 +1,65 @@
 import flet as ft
-from flet import Page, AppBar, Icon, Icons, Text, IconButton, PopupMenuButton, PopupMenuItem, CupertinoFilledButton, Column, Colors
+from flet import (
+    Page, Text, Column, Container, Card, Row, 
+    ElevatedButton, FontWeight, alignment
+)
 
-class VistaAppBar:
+# 1. Se cambió el nombre de la clase a algo más descriptivo
+class HomeView:
     def __init__(self, page: Page):
         self.page = page
-        self.page.title = "AppBar Example"
+        self.page.title = "Menú principal"
         self.page.window.width = 411
         self.page.window.height = 831
         self.page.window.resizable = False
         self.page.scroll = "auto"
-        self.page.clean()
 
-        self.construir_appbar()
+        self.page.clean()
+        
+        # 2. Se eliminó la llamada a construir_appbar()
         self.construir_contenido()
 
-    def construir_appbar(self):
-        self.page.appbar = AppBar(
-            leading=Icon(Icons.HOME, color="white"),
-            leading_width=50,
-            title=Text("Menú de navegación", color ="white", size = 20),
-            center_title=True,
-            bgcolor=Colors.BLUE_GREY,
-            actions=[
-                IconButton(Icons.ANDROID, icon_color = "white"),
-                IconButton(Icons.CLOUD, icon_color= "white"),
-                PopupMenuButton(
-            items=[
-                ft.PopupMenuItem(text="Login", on_click=lambda e: self.page.go("/login")),
-                ft.PopupMenuItem(text="Soy nuevo", on_click=lambda e: self.page.go("/registro")),
-                ft.PopupMenuItem(text="Home", on_click=lambda e: self.page.go("/home")),
-                    ]
-                ),
-            ],
-        )
+    # 3. Se eliminó por completo el método construir_appbar()
 
     def construir_contenido(self):
-        mensaje = Text("Bienvenido a Python una app bien Perrona!!!")
-        boton = CupertinoFilledButton(
-            content=Text("Botón de ejemplo"),
-            opacity_on_click=0.3,
-            on_click=self.boton_click
+        mensaje = Text("BINCO", text_align="center", size=18, weight=FontWeight.BOLD, color="#f8b204")
+
+        tarjeta = Card(
+            content=Container(
+                content=Column(
+                    controls=[
+                        mensaje,
+                        Row(
+                            controls=[
+                                ElevatedButton(
+                                    text="Login",
+                                    bgcolor="#f8b204",
+                                    color="black",
+                                    on_click=lambda e: self.page.go("/login")
+                                ),
+                                ElevatedButton(
+                                    text="Registro",
+                                    bgcolor="#f8b204",
+                                    color="black",
+                                    on_click=lambda e: self.page.go("/registro")
+                                ),
+                            ],
+                            alignment="center",
+                            spacing=20
+                        )
+                    ],
+                    spacing=20,
+                    horizontal_alignment="center"
+                ),
+                padding=30
+            )
         )
-        
 
-        self.page.add(Column(controls=[mensaje, boton], spacing=20))
+        # 4. Se usa un Container con 'expand=True' para garantizar el centrado perfecto
+        contenedor_centrado = Container(
+            content=tarjeta,
+            expand=True,
+            alignment=alignment.center
+        )
 
-    def boton_click(self, e):
-        print("Botón en accionamiento")
-
+        self.page.add(contenedor_centrado)
