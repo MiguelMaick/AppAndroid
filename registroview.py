@@ -50,14 +50,14 @@ class VistaRegistro:
             ],
             spacing=12,
             horizontal_alignment="center",
-            scroll="auto"  # <-- AQUÍ SE AÑADE EL SCROLL pero por alguna razón no funciona bien, solo en pantalla completa XD
+            scroll="auto",  # <-- AQUÍ SE AÑADE EL SCROLL pero por alguna razón no funciona bien, solo en pantalla completa XD
+            expand=True
         )
         
         # Se envuelve todo en un Container para centrarlo en la página
         contenedor_centrado = Container(
-            content=formulario_registro,
-            expand=True,
-            alignment=alignment.center
+        content=formulario_registro,
+        alignment=alignment.center,
         )
 
         self.page.add(contenedor_centrado)
@@ -66,10 +66,10 @@ class VistaRegistro:
         # el resto de la función de registro no cambia
         cliente = {
             "nombre": self.txt_Nombre.value,
-            "apellido_paterno": self.txt_appat.value,
-            "apellido_materno": self.txt_apmat.value,
+            "paterno": self.txt_appat.value,
+            "materno": self.txt_apmat.value,
             "email": self.txt_email.value,
-            "password": self.txt_password2.value,
+            "contrasena": self.txt_password2.value,
             "telefono": self.txt_telefono.value,
             "domicilio": self.txt_domicilio.value,
             "codigo_postal": self.txt_codigo_postal.value,
