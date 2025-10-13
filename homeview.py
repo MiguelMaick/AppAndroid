@@ -1,65 +1,85 @@
 import flet as ft
 from flet import (
-    Page, Text, Column, Container, Card, Row, 
+    Page, Text, Column, Container, Card, Row,
     ElevatedButton, FontWeight, alignment
 )
+from pathlib import Path
+import traceback
+import sys
 
-# 1. Se cambió el nombre de la clase a algo más descriptivo
 class HomeView:
     def __init__(self, page: Page):
         self.page = page
         self.page.title = "Menú principal"
-        self.page.window.width = 411
-        self.page.window.height = 831
+        self.page.window.width = 431
+        self.page.window.height = 682
         self.page.window.resizable = False
         self.page.scroll = "auto"
 
-        self.page.clean()
-        
-        # 2. Se eliminó la llamada a construir_appbar()
+        # Construye contenido protegido
         self.construir_contenido()
 
-    # 3. Se eliminó por completo el método construir_appbar()
-
     def construir_contenido(self):
-        mensaje = Text("BINCO", text_align="center", size=18, weight=FontWeight.BOLD, color="#f8b204")
+        try:
+            mensaje = Text("BIENVENIDO A", text_align="center", size=18, weight=FontWeight.BOLD, color="#ffffff")
 
-        tarjeta = Card(
-            content=Container(
-                content=Column(
-                    controls=[
-                        mensaje,
-                        Row(
-                            controls=[
-                                ElevatedButton(
-                                    text="Login",
-                                    bgcolor="#f8b204",
-                                    color="black",
-                                    on_click=lambda e: self.page.go("/login")
-                                ),
-                                ElevatedButton(
-                                    text="Registro",
-                                    bgcolor="#f8b204",
-                                    color="black",
-                                    on_click=lambda e: self.page.go("/registro")
-                                ),
-                            ],
-                            alignment="center",
-                            spacing=20
-                        )
-                    ],
-                    spacing=20,
-                    horizontal_alignment="center"
-                ),
-                padding=30
+            imagen = ft.Image(
+                src="assets/logo.png", 
+                width=150,            
+                height=50,
+                fit=ft.ImageFit.CONTAIN,
+                tooltip="Logo de BINCO"
             )
-        )
 
-        # 4. Se usa un Container con 'expand=True' para garantizar el centrado perfecto
-        contenedor_centrado = Container(
-            content=tarjeta,
-            expand=True,
-            alignment=alignment.center
-        )
+            tarjeta = Card(
+                content=Container(
+                    content=Column(
+                        controls=[
+                            mensaje,
+                            imagen,
+                            Row(
+                                controls=[
+                                    ElevatedButton(
+                                        text="Login",
+                                        bgcolor="#f8b204",
+                                        color="black",
+                                        on_click=lambda e: self.page.go("/login")
+                                    ),
+                                    ElevatedButton(
+                                        text="Registro",
+                                        bgcolor="#f8b204",
+                                        color="black",
+                                        on_click=lambda e: self.page.go("/registro")
+                                    ),
+                                ],
+                                alignment="center",
+                                spacing=20
+                            )
+                        ],
+                        spacing=20,
+                        horizontal_alignment="center"
+                    ),
+                    padding=30
+                )
+            )
 
-        self.page.add(contenedor_centrado)
+            contenedor_centrado = Container(
+                content=tarjeta,
+                expand=True,
+                alignment=alignment.center
+            )
+
+            # Añade al page
+            self.page.add(contenedor_centrado)
+
+            # Forzar actualización (en caso de que no se refresque automáticamente)
+            self.page.update()
+
+        except Exception as exc:
+            # Captura cualquier excepción y la muestra en consola para que no quede negro sin pista
+            print("Excepción al construir la UI:", file=sys.stderr)
+            traceback.print_exc()
+            # Opcional: muestra un mensaje visible en la UI en vez de pantalla negra
+            self.page.controls.clear()
+            self.page.add(Text("Ocurrió un error al cargar la interfaz. Revisa la consola.", color="red"))
+            self.page.update()
