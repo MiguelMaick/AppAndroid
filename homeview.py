@@ -21,7 +21,7 @@ class HomeView:
 
     def construir_contenido(self):
         try:
-            mensaje = Text("BIENVENIDO A", text_align="center", size=18, weight=FontWeight.BOLD, color="#ffffff")
+            mensaje = Text("BIENVENIDO A", text_align="center", size=18, weight=FontWeight.BOLD, color="black")
 
             imagen = ft.Image(
                 src="assets/logo.png", 
