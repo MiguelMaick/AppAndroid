@@ -2,6 +2,7 @@ import flet as ft
 from homeview import HomeView 
 from loginview import VistaLogin
 from registroview import VistaRegistro
+from catalogoview import VistaCatalogo
 
 def main(page: ft.Page):
     # La lógica del enrutador ahora es más clara.
@@ -16,6 +17,8 @@ def main(page: ft.Page):
             VistaLogin(page)
         elif page.route == "/registro":
             VistaRegistro(page)
+        elif page.route == "/catalogo":
+            VistaCatalogo(page)
 
         page.update()
 

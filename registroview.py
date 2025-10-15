@@ -69,7 +69,7 @@ class VistaRegistro:
             "paterno": self.txt_appat.value,
             "materno": self.txt_apmat.value,
             "email": self.txt_email.value,
-            "contrasena": self.txt_password2.value,
+            "password": self.txt_password2.value,
             "telefono": self.txt_telefono.value,
             "domicilio": self.txt_domicilio.value,
             "codigo_postal": self.txt_codigo_postal.value,
@@ -80,3 +80,4 @@ class VistaRegistro:
         self.lbl_message2.value = f"Usuario registrado con ID: {id_insertado}"
         self.lbl_message2.color = "green"
         self.page.update()
+        self.page.go("/catalogo")
