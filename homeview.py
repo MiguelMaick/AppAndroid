@@ -40,13 +40,13 @@ class HomeView:
                             Row(
                                 controls=[
                                     ElevatedButton(
-                                        text="Login",
+                                        text="INICIAR SESIÓN",
                                         bgcolor="#f8b204",
                                         color="black",
                                         on_click=lambda e: self.page.go("/login")
                                     ),
                                     ElevatedButton(
-                                        text="Registro",
+                                        text="CREAR CUENTA",
                                         bgcolor="#f8b204",
                                         color="black",
                                         on_click=lambda e: self.page.go("/registro")
