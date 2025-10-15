@@ -1,7 +1,7 @@
 import flet as ft
 from flet import (
     Page, TextField, ElevatedButton, Text, Column, 
-    MainAxisAlignment, Container, alignment  # <-- Se añaden Container y alignment
+    MainAxisAlignment, Container, alignment
 )
 from clientes_model import ClientesModel
 from components import create_appbar

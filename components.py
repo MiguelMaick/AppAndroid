@@ -4,7 +4,7 @@ def create_appbar(page: ft.Page):
     return ft.AppBar(
         leading=ft.IconButton(ft.Icons.HOME, icon_color="black", on_click=lambda e: page.go("/home")),
         leading_width=50,
-        center_title=True,   # Esto centra el contenido del título
+        center_title=True,  
         title=ft.Container(
             content=ft.Image(
                 src="assets/logo.png",
