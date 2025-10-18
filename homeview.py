@@ -11,6 +11,7 @@ class HomeView:
     def __init__(self, page: Page):
         self.page = page
         self.page.title = "Menú principal"
+        self.page.bgcolor = "#383838" 
         self.page.window.width = 431
         self.page.window.height = 682
         self.page.window.resizable = False

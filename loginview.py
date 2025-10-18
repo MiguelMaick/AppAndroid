@@ -50,8 +50,9 @@ class VistaLogin:
         if self.modelo.autenticar_cliente(email, password):
             self.lbl_message.value = f"Bienvenido, {email}"
             self.lbl_message.color = "green"
+            self.page.update()
+            self.page.go("/catalogo")
         else:
             self.lbl_message.value = "Credenciales inválidas"
             self.lbl_message.color = "red"
-
-        self.page.update()
+            self.page.update()

@@ -2,8 +2,12 @@ import flet as ft
 from homeview import HomeView 
 from loginview import VistaLogin
 from registroview import VistaRegistro
+from catalogoview import VistaCatalogo
 
 def main(page: ft.Page):
+    
+    page.bgcolor = "#383838" # Color de fondo gris oscuro
+    page.update()
     # La lógica del enrutador ahora es más clara.
     # El nombre 'cambiar_vista' aquí es un poco confuso con el de Flet, 
     # es mejor llamarlo 'route_change_handler' o algo similar, pero lo mantendré.
@@ -16,7 +20,9 @@ def main(page: ft.Page):
             VistaLogin(page)
         elif page.route == "/registro":
             VistaRegistro(page)
-
+        elif page.route == "/catalogo":
+            VistaCatalogo(page)
+        
         page.update()
 
     page.on_route_change = cambiar_vista
